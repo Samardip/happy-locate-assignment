@@ -38,10 +38,28 @@ export const useProductDetailPage = (itemNodes, itemData, selectedTab, inventory
         let newDetailArray = !(inventoryDetailsData['category']?.length === 0) ? inventoryDetailsData['category'] : detailArray;
         detailArray = newDetailArray
     }
-    const filteredFurnitureArray = detailArray.filter(item =>
+   
+    let filteredFurnitureArray = detailArray.filter(item =>
         item.name.toLowerCase().includes(searchValue.toLowerCase())
     );
     const [furnitureArray, setFurnitureArray] = useState(filteredFurnitureArray)
+
+    const handleUpdateFilterData=()=>{
+        setFurnitureArray(filteredFurnitureArray)
+    }
+    const handleSearch = (fn, delay) => {
+        let timer = null;
+        return (...args) => {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+                fn.call(this,...args);
+            }, delay);
+        };
+    };
+    
+    const handleDebounceSearch = handleSearch(handleUpdateFilterData, 200);
     const [cancel, setCancel] = useState({});
     
     const handleDataChanges = useCallback((newFurnitureArray, index) => {
@@ -125,6 +143,7 @@ export const useProductDetailPage = (itemNodes, itemData, selectedTab, inventory
         open,
         setOpen,
         cancel,
-        filteredFurnitureArray
+        filteredFurnitureArray,
+        handleDebounceSearch
     }
 }

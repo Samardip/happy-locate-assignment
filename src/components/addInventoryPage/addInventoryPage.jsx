@@ -1,9 +1,9 @@
 import React from "react";
-import { ProductDetailPage } from "../productDetailPage/productDetailPage";
 import { ShowHeader } from "./showHeader";
 import { useAddInventoryPage } from "../../useHooks/useAddInventoryPageHooks/useAddInventoryPage";
+import ProductDetailPage from "../productDetailPage/productDetailPage";
 
-const AddInventoryPage = () => {
+const AddInventoryPage = React.memo(() => {
   const {
     selectedTab,
     inventoryTabData,
@@ -23,7 +23,7 @@ const AddInventoryPage = () => {
                 >
                   <ShowHeader
                     isToggled={toggleStates[itemNodes.id] || false}
-                    handleToggle={() => handleToggle(itemNodes.id)}
+                    handleToggle={() => {handleToggle(itemNodes.id)}}
                     listItem={itemNodes}
                   />
                   <div
@@ -54,6 +54,6 @@ const AddInventoryPage = () => {
 
     </>
   );
-};
+});
 
 export default AddInventoryPage;

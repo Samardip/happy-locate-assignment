@@ -6,7 +6,7 @@ import ModalVariant from '../../common/modalVariant/modalVariant';
 import { RemoveModal } from '../ModalData/removeModal/removeModal';
 import { useProductDetailPage } from '../../useHooks/useProductDetailPageHooks/useProductDetailPage';
 
-export const ProductDetailPage = ({ itemNodes, itemData, selectedTab, inventoryDetailsData }) => {
+const ProductDetailPage = React.memo(({ itemNodes, itemData, selectedTab, inventoryDetailsData }) => {
     const {
         searchValue,
         setSearchValue,
@@ -17,13 +17,16 @@ export const ProductDetailPage = ({ itemNodes, itemData, selectedTab, inventoryD
         open,
         setOpen,
         cancel,
-        filteredFurnitureArray
+        filteredFurnitureArray,
     } = useProductDetailPage(itemNodes, itemData, selectedTab, inventoryDetailsData);
+
     return (
         <div className='w-[90%]'>
             <InputVariant
                 value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={(e) => {
+                    setSearchValue(e.target.value);
+                }}
                 placeholder="Search for items..."
             />
 
@@ -53,4 +56,6 @@ export const ProductDetailPage = ({ itemNodes, itemData, selectedTab, inventoryD
             </ModalVariant>
         </div>
     );
-};
+});
+
+export default ProductDetailPage;
