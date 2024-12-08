@@ -12,7 +12,7 @@ export const RemoveModal = ({ setOpen, cancel,handleDecrement }) => {
             <div className='flex justify-end items-center gap-10 mt-[25px]'>
                 <div className='font-bold text-custom-blue cursor-pointer' onClick={() => {
                     setOpen(false)
-                    handleDecrement(cancel?.item,cancel?.index);
+                    handleDecrement({...cancel,count:0},cancel?.index);
                 }}>Remove</div>
                 <ButtonVariant text={'Cancel'} className={`w-[78px] h-[44px]`} onClick={() => {
                     setOpen(false)

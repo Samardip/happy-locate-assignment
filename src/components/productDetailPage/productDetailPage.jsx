@@ -18,8 +18,9 @@ const ProductDetailPage = React.memo(({ itemNodes, itemData, selectedTab, invent
         setOpen,
         cancel,
         filteredFurnitureArray,
+        selectedScrollTab,
+        setSelectedScrollTab
     } = useProductDetailPage(itemNodes, itemData, selectedTab, inventoryDetailsData);
-
     return (
         <div className='w-[90%]'>
             <InputVariant
@@ -31,7 +32,7 @@ const ProductDetailPage = React.memo(({ itemNodes, itemData, selectedTab, invent
             />
 
             <div className='my-[10px]'>
-                <HorizontalScrollBar tabs={tabData} />
+                <HorizontalScrollBar tabs={tabData} setTabName={setSelectedScrollTab} />
             </div>
 
             <div

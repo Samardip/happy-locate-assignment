@@ -6,14 +6,14 @@ import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import { ChangeValue } from '../changeValue/changeValue';
 
-export default function CardVariant({item,key,handleIncrement,handleDecrement}) {
+export default function CardVariant({ item, key, handleIncrement, handleDecrement }) {
   return (
-    <Card sx={{ minWidth: '100%',minHeight:147 }} key={key}>
+    <Card sx={{ minWidth: '100%', minHeight: 147 }} key={key}>
       <CardActionArea>
         <CardMedia
           component="img"
-        //   height="140"
-        className='object-cover h-[110px]'
+          //   height="140"
+          className='object-cover h-[110px]'
           image="https://plus.unsplash.com/premium_photo-1661596686441-611034b8077e?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="green iguana"
         />
@@ -22,17 +22,19 @@ export default function CardVariant({item,key,handleIncrement,handleDecrement}) 
             {item?.name}
           </Typography>
           {
-            item?.count>0?<Typography variant="div">
+            item?.count > 0 ? <Typography variant="div">
               <ChangeValue
-              value={item?.count}
-              handleIncrement={() => { handleIncrement(item, key) }}
-              handleDecrement={() => { handleDecrement(item, key) }}
-               />
-            </Typography>:<Typography variant="div" className='!text-[12px] !font-bold !text-custom-blue cursor-pointer' onClick={() => { handleIncrement(item, key) }}>
-            Add
-           </Typography>
+                value={item?.count}
+                handleIncrement={() => { handleIncrement(item, key) }}
+                handleDecrement={() => { handleDecrement(item, key) }}
+              />
+            </Typography> : <Typography variant="div" className='!text-[12px] !font-bold !text-custom-blue cursor-pointer'
+              onClick={() => { handleIncrement(item, key) }}
+            >
+              Add
+            </Typography>
           }
-          
+
         </CardContent>
       </CardActionArea>
     </Card>

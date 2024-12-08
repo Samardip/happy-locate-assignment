@@ -55,7 +55,7 @@ const StyledTab = styled(Tab)(({ theme }) => ({
   },
 }));
 
-const HorizontalScrollBar = ({ tabs = [] }) => {
+const HorizontalScrollBar = ({ tabs = [],setTabName }) => {
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -70,17 +70,18 @@ const HorizontalScrollBar = ({ tabs = [] }) => {
         scrollButtons="auto"
         aria-label="scrollable responsive tabs"
       >
-        {tabs.map((tab, index) => (
+        {tabs?.map((tab, index) => (
           <StyledTab
             key={index}
             label={
               <Box display="flex" justifyContent="center" gap={'4px'} alignItems="center" height={'20px'} >
-                <Typography className={`${selectedTab==index?'font-extrabold !text-[14px]':'!text-[12px]'}`}>{tab.label}</Typography>
+                <Typography className={`${selectedTab==index?'font-extrabold !text-[14px]':'!text-[12px]'}`}>{tab?.tabName}</Typography>
                 <Typography variant="caption" className={`flex justify-center items-center h-[20px] w-[20px] rounded-full bg-white ${selectedTab==index?'font-extrabold !text-[14px]':'!text-[12px]'}`}>
-                  {tab.text}
+                  {tab?.count}
                 </Typography>
               </Box>
             }
+            onClick={()=>{setTabName(tab?.tabName)}}
             {...tab.props}
           />
         ))}

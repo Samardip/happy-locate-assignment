@@ -16,8 +16,8 @@ const AddInventoryPage = React.memo(() => {
       {
         selectedTab === 'room' ? <div className="flex flex-col justify-center items-center w-[100%] font-medium overflow-hidden">
           {
-            inventoryTabData?.map((itemData) => {
-              return itemData?.nodes?.map((itemNodes) => {
+            inventoryTabData?.map((itemData,index) => {
+              return itemData?.nodes?.map((itemNodes,idx) => {
                 return <div className="w-[100%]"
                   key={itemNodes.id}
                 >
@@ -32,8 +32,8 @@ const AddInventoryPage = React.memo(() => {
                     <ProductDetailPage
                       inventoryDetailsData={inventoryDetailsData}
                       inventoryTabData={inventoryTabData}
-                      itemData={itemData}
-                      itemNodes={itemNodes}
+                      itemData={inventoryTabData[index]}
+                      itemNodes={inventoryTabData[index]?.nodes[idx]}
                       selectedTab={selectedTab}
                     />
                   </div>
