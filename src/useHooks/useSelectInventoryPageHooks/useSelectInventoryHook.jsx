@@ -25,12 +25,13 @@ export const useSelectInventoryHook = () => {
                     };
                 }
                 return roomItem;
-            })
+            }),
+            'selectedTab': selectedTab,
         };
 
         setInventoryDetails(newInventoryDetails);
         dispatch(appActions.updateInventoryDetails(newInventoryDetails));
-    }, [inventoryDetails, dispatch]);
+    }, [inventoryDetails, selectedTab, dispatch]);
 
     const handleDecrement = useCallback((item, index) => {
         const newInventoryDetails = {
@@ -43,12 +44,13 @@ export const useSelectInventoryHook = () => {
                     };
                 }
                 return roomItem;
-            })
+            }),
+            'selectedTab': selectedTab,
         };
 
         setInventoryDetails(newInventoryDetails);
         dispatch(appActions.updateInventoryDetails(newInventoryDetails));
-    }, [inventoryDetails, dispatch]);
+    }, [inventoryDetails, selectedTab, dispatch]);
     return {
         inventoryDetails,
         handleIncrement,

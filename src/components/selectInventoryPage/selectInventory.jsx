@@ -12,28 +12,32 @@ const SelectInventory = () => {
     return (
         <>
             {
-                selectedTab === 'room' ?
-                    <>
-                        <div className='flex flex-col justify-center items-center gap-3 w-[90%]'>
-                            {
-                                inventoryDetails['room']?.map((inventoryItems, index) => {
-                                    return <div className='flex justify-between items-center w-[100%]' key={inventoryItems.id}>
-                                        <div className=''>{inventoryItems.name}</div>
-                                        <ChangeValue
-                                            value={inventoryItems?.nodes?.length}
-                                            handleIncrement={() => { handleIncrement(inventoryItems, index) }}
-                                            handleDecrement={() => { handleDecrement(inventoryItems, index) }}
-                                        />
-                                    </div>
-                                })
-                            }
-                        </div>
-                    </>
-                    :
-                    <div className='text-[14px] font-semibold mt-[20px]'>
-                        No Category available
+                selectedTab === 'room' &&
+                <>
+                    <div className='flex flex-col justify-center items-center gap-3 w-[90%]'>
+                        {
+                            inventoryDetails['room']?.map((inventoryItems, index) => {
+                                return <div className='flex justify-between items-center w-[100%]' key={inventoryItems.id}>
+                                    <div className=''>{inventoryItems.name}</div>
+                                    <ChangeValue
+                                        value={inventoryItems?.nodes?.length}
+                                        handleIncrement={() => { handleIncrement(inventoryItems, index) }}
+                                        handleDecrement={() => { handleDecrement(inventoryItems, index) }}
+                                    />
+                                </div>
+                            })
+                        }
                     </div>
+                </>
+
             }
+            {
+                selectedTab === 'category' &&
+                <div className='text-[14px] font-semibold mt-[20px]'>
+                    No Category available
+                </div>
+            }
+
         </>
     )
 }
