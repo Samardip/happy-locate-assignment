@@ -19,7 +19,8 @@ const ProductDetailPage = React.memo(({ itemNodes, itemData, selectedTab, invent
         cancel,
         filteredFurnitureArray,
         selectedScrollTab,
-        setSelectedScrollTab
+        setSelectedScrollTab,
+        handleTabCount
     } = useProductDetailPage(itemNodes, itemData, selectedTab, inventoryDetailsData);
     return (
         <div className='w-[90%]'>
@@ -27,6 +28,7 @@ const ProductDetailPage = React.memo(({ itemNodes, itemData, selectedTab, invent
                 value={searchValue}
                 onChange={(e) => {
                     setSearchValue(e.target.value);
+                    handleTabCount(e.target.value);
                 }}
                 placeholder="Search for items..."
             />
@@ -42,7 +44,7 @@ const ProductDetailPage = React.memo(({ itemNodes, itemData, selectedTab, invent
                     overflowY: 'scroll',
                 }}
             >
-                {filteredFurnitureArray.map((item, index) => (
+                {furnitureArray.map((item, index) => (
                     <CardVariant
                         item={item}
                         key={index}

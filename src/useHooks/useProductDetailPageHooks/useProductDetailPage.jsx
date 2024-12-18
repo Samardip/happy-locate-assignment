@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { appActions } from '../../context/app-slice';
 
@@ -6,7 +6,7 @@ export const useProductDetailPage = (itemNodes, itemData, selectedTab, inventory
     const [searchValue, setSearchValue] = useState("");
     const [selectedScrollTab, setSelectedScrollTab] = useState('All');
     const dispatch = useDispatch();
-    const tabData = [
+    const [tabData, setTabData] = useState([
         {
             tabName: "All",
             count: 33
@@ -31,56 +31,58 @@ export const useProductDetailPage = (itemNodes, itemData, selectedTab, inventory
             tabName: "Office",
             count: 6
         },
-    ]
+    ])
     const [open, setOpen] = useState(false);
     let filterSelectedTabName = tabData?.filter((itemTab) => {
         return itemTab?.tabName === selectedScrollTab;
     });
     // console.log(filterSelectedTabName[0]?.items, 'items')
-    let detailArray = [
-        // Living Room Items
-        { name: "Sofa", count: 0, type: "Living Room" },
-        { name: "Chair", count: 0, type: "Living Room" },
-        { name: "Stool", count: 0, type: "Living Room" },
-        { name: "Bookshelf", count: 0, type: "Living Room" },
-        { name: "Coffee Table", count: 0, type: "Living Room" },
-        { name: "TV Stand", count: 0, type: "Living Room" },
-        { name: "Floor Lamp", count: 0, type: "Living Room" },
-        { name: "Recliner", count: 0, type: "Living Room" },
+    let detailArray = useMemo(() => {
+        return [
+            // Living Room Items
+            { name: "Sofa", count: 0, type: "Living Room" },
+            { name: "Chair", count: 0, type: "Living Room" },
+            { name: "Stool", count: 0, type: "Living Room" },
+            { name: "Bookshelf", count: 0, type: "Living Room" },
+            { name: "Coffee Table", count: 0, type: "Living Room" },
+            { name: "TV Stand", count: 0, type: "Living Room" },
+            { name: "Floor Lamp", count: 0, type: "Living Room" },
+            { name: "Recliner", count: 0, type: "Living Room" },
 
-        // Bedroom Items
-        { name: "Bed", count: 0, type: "Bedroom" },
-        { name: "Cupboard", count: 0, type: "Bedroom" },
-        { name: "Nightstand", count: 0, type: "Bedroom" },
-        { name: "Dressing Table", count: 0, type: "Bedroom" },
-        { name: "Wardrobe", count: 0, type: "Bedroom" },
-        { name: "Mattress", count: 0, type: "Bedroom" },
-        { name: "Pillow", count: 0, type: "Bedroom" },
+            // Bedroom Items
+            { name: "Bed", count: 0, type: "Bedroom" },
+            { name: "Cupboard", count: 0, type: "Bedroom" },
+            { name: "Nightstand", count: 0, type: "Bedroom" },
+            { name: "Dressing Table", count: 0, type: "Bedroom" },
+            { name: "Wardrobe", count: 0, type: "Bedroom" },
+            { name: "Mattress", count: 0, type: "Bedroom" },
+            { name: "Pillow", count: 0, type: "Bedroom" },
 
-        // Kitchen Items
-        { name: "Fridge", count: 0, type: "Kitchen" },
-        { name: "Table", count: 0, type: "Kitchen" },
-        { name: "Microwave", count: 0, type: "Kitchen" },
-        { name: "Toaster", count: 0, type: "Kitchen" },
-        { name: "Blender", count: 0, type: "Kitchen" },
-        { name: "Dish Rack", count: 0, type: "Kitchen" },
-        { name: "Kitchen Cabinet", count: 0, type: "Kitchen" },
+            // Kitchen Items
+            { name: "Fridge", count: 0, type: "Kitchen" },
+            { name: "Table", count: 0, type: "Kitchen" },
+            { name: "Microwave", count: 0, type: "Kitchen" },
+            { name: "Toaster", count: 0, type: "Kitchen" },
+            { name: "Blender", count: 0, type: "Kitchen" },
+            { name: "Dish Rack", count: 0, type: "Kitchen" },
+            { name: "Kitchen Cabinet", count: 0, type: "Kitchen" },
 
-        // Dining Room Items
-        { name: "Dining Table", count: 0, type: "Dining" },
-        { name: "Dining Chair", count: 0, type: "Dining" },
-        { name: "Sideboard", count: 0, type: "Dining" },
-        { name: "Hutch", count: 0, type: "Dining" },
-        { name: "Bar Stool", count: 0, type: "Dining" },
+            // Dining Room Items
+            { name: "Dining Table", count: 0, type: "Dining" },
+            { name: "Dining Chair", count: 0, type: "Dining" },
+            { name: "Sideboard", count: 0, type: "Dining" },
+            { name: "Hutch", count: 0, type: "Dining" },
+            { name: "Bar Stool", count: 0, type: "Dining" },
 
-        // Office Items
-        { name: "Office Chair", count: 0, type: "Office" },
-        { name: "Desk", count: 0, type: "Office" },
-        { name: "Bookshelf", count: 0, type: "Office" },
-        { name: "Filing Cabinet", count: 0, type: "Office" },
-        { name: "Table Lamp", count: 0, type: "Office" },
-        { name: "Whiteboard", count: 0, type: "Office" }
-    ];
+            // Office Items
+            { name: "Office Chair", count: 0, type: "Office" },
+            { name: "Desk", count: 0, type: "Office" },
+            { name: "Bookshelf", count: 0, type: "Office" },
+            { name: "Filing Cabinet", count: 0, type: "Office" },
+            { name: "Table Lamp", count: 0, type: "Office" },
+            { name: "Whiteboard", count: 0, type: "Office" }
+        ]
+    }, []);
     if (selectedTab === 'room') {
         console.log(inventoryDetailsData['room'][itemData?.id]?.nodes?.filter((curItemNode) => { return (curItemNode?.id === itemNodes?.id) })[0]['items'])
         let oldDataArray = inventoryDetailsData['room'][itemData?.id]?.nodes?.filter((curItemNode) => { return (curItemNode?.id === itemNodes?.id) })[0]['items'];
@@ -92,15 +94,48 @@ export const useProductDetailPage = (itemNodes, itemData, selectedTab, inventory
         detailArray = newDetailArray
     }
 
-    let filteredFurnitureArray = detailArray.filter((itemDiff) => {
-        if (itemDiff.type === selectedScrollTab || selectedScrollTab === 'All') {
-            return itemDiff;
-        }
-    }).filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()));
-    const [furnitureArray, setFurnitureArray] = useState(filteredFurnitureArray)
+    // let filteredFurnitureArray = detailArray.filter((itemDiff) => {
+    //     if (itemDiff?.type === selectedScrollTab || selectedScrollTab === 'All') {
+    //         return itemDiff;
+    //     }
+    // }).filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()));
+    const [furnitureArray, setFurnitureArray] = useState(detailArray);
 
-    const handleUpdateFilterData = () => {
+    const handleTabCount = useCallback((searchTerm) => {
+        let filteredFurnitureArray = detailArray.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        setSearchValue(searchTerm);
+        setFurnitureArray(filteredFurnitureArray);
+        let tabCountMap = new Map();
+        tabCountMap['All'] = filteredFurnitureArray?.length;
+        filteredFurnitureArray?.map((item) => {
+            if (!tabCountMap[item?.type]) {
+                tabCountMap[item?.type] = 1;
+            }
+            else {
+                tabCountMap[item?.type] += 1;
+            }
+        });
+        console.log(filteredFurnitureArray, tabCountMap, 'tabCountMap')
+        let newTabData = [];
+        newTabData = tabData?.map((tabItem) => {
+            return {
+                ...tabItem,
+                count: tabCountMap[tabItem?.tabName] || 0
+            }
+        });
+        setTabData(newTabData);
+    }, [detailArray, tabData]);
+
+    useEffect(() => {
+        let filteredFurnitureArray = detailArray.filter((itemDiff) => {
+            if (itemDiff?.type === selectedScrollTab || selectedScrollTab === 'All') {
+                return itemDiff;
+            }
+        }).filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()));
         setFurnitureArray(filteredFurnitureArray)
+    }, [detailArray, searchValue, selectedScrollTab])
+    const handleUpdateFilterData = () => {
+        setFurnitureArray(furnitureArray)
     }
     const handleSearch = (fn, delay) => {
         let timer = null;
@@ -139,8 +174,8 @@ export const useProductDetailPage = (itemNodes, itemData, selectedTab, inventory
             setOpen(true);
             setCancel({
                 ...item,
-                name:item?.name,
-                count:item?.count,
+                name: item?.name,
+                count: item?.count,
                 index: index
             })
         }
@@ -201,9 +236,10 @@ export const useProductDetailPage = (itemNodes, itemData, selectedTab, inventory
         open,
         setOpen,
         cancel,
-        filteredFurnitureArray,
+        // filteredFurnitureArray,
         handleDebounceSearch,
         selectedScrollTab,
-        setSelectedScrollTab
+        setSelectedScrollTab,
+        handleTabCount
     }
 }
