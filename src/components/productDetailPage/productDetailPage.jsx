@@ -19,6 +19,7 @@ const ProductDetailPage = React.memo(({ itemNodes, itemData, selectedTab, invent
         cancel,
         filteredFurnitureArray,
         selectedScrollTab,
+        handleDebounceSearch,
         setSelectedScrollTab,
         handleTabCount
     } = useProductDetailPage(itemNodes, itemData, selectedTab, inventoryDetailsData);
@@ -28,7 +29,7 @@ const ProductDetailPage = React.memo(({ itemNodes, itemData, selectedTab, invent
                 value={searchValue}
                 onChange={(e) => {
                     setSearchValue(e.target.value);
-                    handleTabCount(e.target.value);
+                    // handleDebounceSearch(e.target.value);
                 }}
                 placeholder="Search for items..."
             />

@@ -103,7 +103,7 @@ export const useProductDetailPage = (itemNodes, itemData, selectedTab, inventory
 
     const handleTabCount = useCallback((searchTerm) => {
         let filteredFurnitureArray = detailArray.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
-        setSearchValue(searchTerm);
+        // setSearchValue(searchTerm);
         setFurnitureArray(filteredFurnitureArray);
         let tabCountMap = new Map();
         tabCountMap['All'] = filteredFurnitureArray?.length;
@@ -149,7 +149,10 @@ export const useProductDetailPage = (itemNodes, itemData, selectedTab, inventory
         };
     };
 
-    const handleDebounceSearch = handleSearch(handleUpdateFilterData, 200);
+    const handleDebounceSearch = handleSearch(handleTabCount, 500);
+    useEffect(()=>{
+        handleDebounceSearch(searchValue);
+    },[searchValue])
     const [cancel, setCancel] = useState({});
 
 
